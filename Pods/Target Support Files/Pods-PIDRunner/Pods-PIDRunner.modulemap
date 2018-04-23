@@ -1,6 +1,0 @@
-framework module Pods_PIDRunner {
-  umbrella header "Pods-PIDRunner-umbrella.h"
-
-  export *
-  module * { export * }
-}
