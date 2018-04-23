@@ -6,6 +6,12 @@ Use `force touch` by pressing on the screen or `slider` to check average speed a
 
 # Setting up
 
+Install `Pods` dependencies:
+
+```swift
+    pod install
+```
+
 Project uses `MapBox`, so you have to start from adding `MapBoxToken` file with your token to root folder of the project.
 Make sure it has right permissions:
 
