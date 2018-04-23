@@ -34,8 +34,9 @@ xcuserdata/
 *.dSYM.zip
 *.dSYM
 
-# CocoaPods - Refactored to standalone file
+# CocoaPods 
 
+Pods/
 
 # Carthage - Refactored to standalone file
 
