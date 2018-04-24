@@ -25,15 +25,15 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         
         // Listen to slider changes
-        mapView.sliderValueChanged = { value in
+        mapView.sliderValueChanged = { [weak self] value in
+            guard let `self` = self else { return }
             // value from 0.0 -> 1.0
-           // self.mapView.updateData(for: value)
             self.pidController?.setPoint = value
         }
         
-        let configuration = Pulse.Configuration(minimumValueStep: 0.005, Kp: 2, Ki: 0.1, Kd: 0.4)
-        pidController = Pulse(configuration: configuration,  measureClosure: {() -> CGFloat in
-            
+        let configuration = Pulse.Configuration(minimumValueStep: 0.005, Kp: 1.2, Ki: 0.1, Kd: 0.4)
+        pidController = Pulse(configuration: configuration,  measureClosure: { [weak self] () -> CGFloat in
+             guard let `self` = self else { return 0 }
             return self.currentProgress
         }, outputClosure: { (output) in
             self.currentProgress = output
@@ -41,11 +41,11 @@ class MapViewController: UIViewController {
         })
     }
     
-    
     required init?(coder aDecoder: NSCoder) {
         guard let model = SpeedModel.with(file: "speedData") else {
             fatalError("Cannot read JSON data")
         }
+        
         self.speedDataModel = model
         self.mapView = MapView(speedModel: self.speedDataModel)
         super.init(coder: aDecoder)
@@ -55,9 +55,13 @@ class MapViewController: UIViewController {
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let firstTouch = touches.first {
-            let normalizedValue = firstTouch.force / firstTouch.maximumPossibleForce
-            self.pidController?.setPoint = normalizedValue
+            let normalizedForce = firstTouch.force / firstTouch.maximumPossibleForce
+             self.pidController?.setPoint = normalizedForce
         }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+       self.pidController?.setPoint = 0
     }
     
     override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
