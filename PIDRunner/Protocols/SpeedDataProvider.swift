@@ -23,6 +23,6 @@ protocol SpeedDataProvider: class {
     /// - Returns: Array of all measured samples before given `progress`
     func speedSample(before progress: CGFloat) -> [SpeedMeasuredSample]
     
-    /// Provides infomration how long is full distance (in KM)
+    /// Provides information how long is full distance (in KM)
     var fullDistance: Double { get }
 }

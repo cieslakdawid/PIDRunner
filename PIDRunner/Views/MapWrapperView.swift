@@ -64,13 +64,6 @@ class MapWrapperView: UIView {
         ])
     }
     
-   private func showProgress(_ progress: CGFloat) {
-        
-//        let lastPoint = Int( CGFloat(coordinates().count) * progress  )
-//        var newCoords = coordinates()[0..<Int(CGFloat(coordinates().count)*progress)]
-//        updatePolylineWithCoordinates(coordinates: Array(newCoords))
-    }
-    
     func drawLine(_ points: [CLLocationCoordinate2D]) {
         updatePolylineWithCoordinates(coordinates: Array(points))
     }
@@ -88,28 +81,22 @@ class MapWrapperView: UIView {
         // Updating the MGLShapeSource’s shape will have the map redraw our polyline with the current coordinates.
         polylineSource?.shape = polyline
     }
-    
-  
 }
-
 
 // MARK: - MGLMapViewDelegate
 extension MapWrapperView: MGLMapViewDelegate {
-    // Wait until the map is loaded before adding to the map.
+    
     func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
         addLayer(to: style)
     }
     
     func addLayer(to style: MGLStyle) {
-        // Add an empty MGLShapeSource, we’ll keep a reference to this and add points to this later.
         let source = MGLShapeSource(identifier: "polyline", shape: nil, options: nil)
         style.addSource(source)
         polylineSource = source
         
         // Add a layer to style our polyline.
         let layer = MGLLineStyleLayer(identifier: "polyline", source: source)
-   //     layer.lineJoin = MGLStyleValue(rawValue: NSString(string: "round"))
-   //     layer.lineCap = MGLStyleValue(rawValue: NSString(string: "round"))
         layer.lineColor = MGLStyleValue(rawValue: UIColor(red: 9.0/255.0, green: 114.0/255.0, blue: 225.0/255.0, alpha: 1.0))
         
         // The line width should gradually increase based on the zoom level.

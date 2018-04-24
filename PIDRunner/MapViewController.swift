@@ -20,13 +20,25 @@ class MapViewController: UIViewController {
     /// Latest value of progress set by user
     var currentProgress: CGFloat = 0.0
 
+    var pidController: Pulse? = nil
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Listen to slider changes
         mapView.sliderValueChanged = { value in
-           self.mapView.updateData(for: value)
+            // value from 0.0 -> 1.0
+           // self.mapView.updateData(for: value)
+            self.pidController?.setPoint = value
         }
+        
+        let configuration = Pulse.Configuration(minimumValueStep: 0.005, Kp: 2, Ki: 0.1, Kd: 0.4)
+        pidController = Pulse(configuration: configuration,  measureClosure: {() -> CGFloat in
+            
+            return self.currentProgress
+        }, outputClosure: { (output) in
+            self.currentProgress = output
+            self.mapView.updateData(for: self.currentProgress)
+        })
     }
     
     
@@ -40,4 +52,19 @@ class MapViewController: UIViewController {
         
         mapView.dataProvider = self
     }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let firstTouch = touches.first {
+            let normalizedValue = firstTouch.force / firstTouch.maximumPossibleForce
+            self.pidController?.setPoint = normalizedValue
+        }
+    }
+    
+    override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if(motion == .motionShake) {
+            pidController?.showTunningView(minimumValue: -1, maximumValue: 1)
+        }
+    }
+    
+    
 }

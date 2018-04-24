@@ -124,7 +124,7 @@ class GraphView: UIView {
         }
         
         let width = bounds.width
-        let graphValueIndex = Int(to * CGFloat(rawValues.count))
+        let graphValueIndex = Int(to * CGFloat(rawValues.count - 1))
         let normalizedValue = CGFloat(rawValues[graphValueIndex])
         let valuePoint = CGPoint(x: CGFloat(to*width), y: bounds.height - normalizedValue*bounds.height)
        

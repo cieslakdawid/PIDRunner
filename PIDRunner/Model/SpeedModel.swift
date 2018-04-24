@@ -25,14 +25,13 @@ extension SpeedMeasuredSample {
     /// - Returns: Speed sample with coordinates and speed
     static func with(_ dict: Any) -> SpeedMeasuredSample? {
         
-       
         guard let dict = dict as? [String:Any] else {
             return nil
         }
         
         guard let coordinates = dict["position"] as? [String:Double] else {  return nil }
-        guard let latitude = coordinates["x"] else {  return nil }
-        guard let longitude = coordinates["y"]  else {  return nil }
+        guard let latitude = coordinates["latitude"] else {  return nil }
+        guard let longitude = coordinates["longitude"]  else {  return nil }
         
         guard let speed = dict["speed"] as? Double else {  return nil }
         

@@ -9,7 +9,9 @@
 import UIKit
 import CoreLocation
 
+// MARK: - Just to keep main class easier to read during presentation
 extension MapViewController {
+    
     override func loadView() {
         super.loadView()
         view = mapView
@@ -27,7 +29,6 @@ extension MapViewController: SpeedDataProvider {
     var fullDistance: Double {
         return speedDataModel.fullDistance
     }
-    
     
     func speedSample(at progress: CGFloat) -> SpeedMeasuredSample? {
         guard speedDataModel.speedData.isEmpty == false else {

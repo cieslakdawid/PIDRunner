@@ -542,6 +542,7 @@
 			baseConfigurationReference = 22FA30B1C28F0B2C903DD5E1 /* Pods-PIDRunner.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PIDRunner/Info.plist;
@@ -563,6 +564,7 @@
 			baseConfigurationReference = D45880B5CED707505ADCC82A /* Pods-PIDRunner.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PIDRunner/Info.plist;

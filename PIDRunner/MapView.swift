@@ -56,8 +56,6 @@ class MapView: UIView {
         // Set listener
         progressSlider.addTarget(self, action: #selector(sliderValueChanged(sender:)), for: .valueChanged)
         
-      
-        
         // Run Image View
         runImageView.image = #imageLiteral(resourceName: "runIcon")
         runImageView.isUserInteractionEnabled = true
@@ -134,20 +132,25 @@ class MapView: UIView {
     ///
     /// - Parameter progress: Progress relative to full distance. Provide value from 0.0 to 1.0
     func updateData(for progress: CGFloat) {
-        guard let speedData = dataProvider?.speedSample(before: progress) else {
+        
+        // Make sure that progress is within range of 0.0 and 1.0
+        let limitedProgress = min(1.0, max(0.0, progress))
+        
+        guard let speedData = dataProvider?.speedSample(before: limitedProgress) else {
             return
         }
        
-        guard let speedDataAtProgress = dataProvider?.speedSample(at: progress) else {
+        guard let speedDataAtProgress = dataProvider?.speedSample(at: limitedProgress) else {
             return
         }
         
+       
         // Move Scrubber
-        graphView.moveScrubber(to: progress)
+        graphView.moveScrubber(to: limitedProgress)
         
         // Show stats about speed at given point
         speedInfoView.update(value: speedDataAtProgress.averageSpeed)
-        distanceInfoView.update(value: dataProvider!.fullDistance * Double(progress))
+        distanceInfoView.update(value: dataProvider!.fullDistance * Double(limitedProgress))
         
         // Coordinates to be drawn as part on run path on map
        let coordinates = speedData.map({ CLLocationCoordinate2D(latitude: $0.coordinate.latitude, longitude: $0.coordinate.longitude)})
