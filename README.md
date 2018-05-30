@@ -4,7 +4,7 @@
 This is a demo project showing how concept of `PID Controller` used by `Pulse` framework can tranform data from sensors to interact with application.
 Use `force touch` by pressing on the screen or `slider` to check average speed at given time of running training.
 
-![Alt Text](https://github.com/cieslakdawid/PIDRunner/blob/master/assets/pid.gif?raw=true)
+![Alt Text](https://github.com/cieslakdawid/PIDRunner/blob/Development/assets/pid?raw=true)
 
 # Setting up
 
