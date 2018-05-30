@@ -7,7 +7,7 @@ target 'PIDRunner' do
 
   # Pods for PIDRunner
   pod 'Mapbox-iOS-SDK', '~> 3.7'
-  pod 'PulseController', '~> 0.1.3'
+  pod 'PulseController', '~> 0.1.4'
 
   target 'PIDRunnerTests' do
     inherit! :search_paths
